@@ -1,29 +1,44 @@
 "use strict";
 const tableau = require('./tableaux.js');
 
-/*const max = tableau.length;*/
-const maxVille = tableau.ville.length;
+const maxNom = tableau.nom.length;
+const maxPrenom = tableau.prenom.length;
+const maxPrefixeTel = tableau.prefixeTel.length;
 const maxDomaine = tableau.domaine.length;
 
 /*console.log('max=' + max);*/
 
 const peupler = () => {
-	/*let position;
-	let tabVille =[];
-	for (let k=0; k<10; k++) {
-		position = Math.floor(Math.random()*max);
-		tabVille.push(tableau[position]);
-	}
-	return(tabVille);*/
 
-	let position = Math.floor(Math.random()*maxVille);
-	let ville = tableau.ville[position];
+	let position = Math.floor(Math.random()*maxNom);
+	let nom = tableau.nom[position];
+
+	position = Math.floor(Math.random()*maxPrenom);
+	let prenom = tableau.prenom[position];
+
+	position = Math.floor(Math.random()*maxPrefixeTel);
+	let prefixeTel = tableau.prefixeTel[position];
+	let telephone = prefixeTel + '-';
+
+	for (let k=0; k<2; k++) {
+		telephone += Math.floor(Math.random()*9);
+	}
+
+	telephone += '-';
+
+	for (let k=0; k<3; k++) {
+		telephone += Math.floor(Math.random()*9);
+	}
+
 	position = Math.floor(Math.random()*maxDomaine);
-	let domaine = tableau.domainee[position];
+	let domaine = tableau.domaine[position];
+	let courriel = prenom +'.'+ nom + domaine;
 
 	return {
-		domaine : domaine,
-		ville : ville
+		nom : nom,
+		prenom : prenom,
+		telephone : telephone,
+		courriel : courriel
 	}
 }
 
