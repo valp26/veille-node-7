@@ -9,37 +9,45 @@ const maxDomaine = tableau.domaine.length;
 /*console.log('max=' + max);*/
 
 const peupler = () => {
+	let generationMembres = [];
 
-	let position = Math.floor(Math.random()*maxNom);
-	let nom = tableau.nom[position];
+	for (var i = 0; i < 10; i++) {
 
-	position = Math.floor(Math.random()*maxPrenom);
-	let prenom = tableau.prenom[position];
+		let position = Math.floor(Math.random()*maxNom);
+		let nom = tableau.nom[position];
 
-	position = Math.floor(Math.random()*maxPrefixeTel);
-	let prefixeTel = tableau.prefixeTel[position];
-	let telephone = prefixeTel + '-';
+		position = Math.floor(Math.random()*maxPrenom);
+		let prenom = tableau.prenom[position];
 
-	for (let k=0; k<2; k++) {
-		telephone += Math.floor(Math.random()*9);
+		position = Math.floor(Math.random()*maxPrefixeTel);
+		let prefixeTel = tableau.prefixeTel[position];
+		let telephone = prefixeTel + '-';
+
+		for (let k=0; k<3; k++) {
+			telephone += Math.floor(Math.random()*9);
+		}
+
+		telephone += '-';
+
+		for (let k=0; k<4; k++) {
+			telephone += Math.floor(Math.random()*9);
+		}
+
+		position = Math.floor(Math.random()*maxDomaine);
+		let domaine = tableau.domaine[position];
+		let courriel = prenom +'.'+ nom + domaine;
+
+		let membre = {
+			nom : nom,
+			prenom : prenom,
+			telephone : telephone,
+			courriel : courriel
+		}
+
+		generationMembres.push(membre);
 	}
 
-	telephone += '-';
-
-	for (let k=0; k<3; k++) {
-		telephone += Math.floor(Math.random()*9);
-	}
-
-	position = Math.floor(Math.random()*maxDomaine);
-	let domaine = tableau.domaine[position];
-	let courriel = prenom +'.'+ nom + domaine;
-
-	return {
-		nom : nom,
-		prenom : prenom,
-		telephone : telephone,
-		courriel : courriel
-	}
+	return generationMembres;
 }
 
 module.exports = peupler;

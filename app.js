@@ -16,7 +16,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 let db // variable qui contiendra le lien sur la BD
 
-const peupler = require("./mes_modules/peupler")
+const peupler = require("./mes_modules/peupler/index.js");
 
 ////////////////////////////////// route accueil
 app.get('/', function (req, res) {
@@ -100,10 +100,29 @@ app.get('/trier/:cle/:ordre', (req, res) => {
 	})
 })
 
+////////////////////////////////// route formulaire
+/*app.get('/peupler', function (req, res) {
+	let peuplement = peupler();
+	
+	db.collection('adresse').save(peuplement, (err, result) => {
+		if (err) return console.log(err)
+			console.log('sauvegarder dans la BD')
+			res.redirect('/list')
+		})
+})*/
 
-
-/*peupler();*/
-
+app.get('/peupler', (req,res) => {
+	res.resultat = peupler(); 
+	console.log('début boucle') 
+	for (let elm of res.resultat) {
+		db.collection('adresse').save(elm, (err, result) => {
+		if (err) return console.log(err)
+	 	console.log('sauvegarder dans la BD')
+		})
+	}
+	console.log('fin boucle')
+	res.redirect('/list')
+})
 
 
 
