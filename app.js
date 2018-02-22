@@ -100,17 +100,7 @@ app.get('/trier/:cle/:ordre', (req, res) => {
 	})
 })
 
-////////////////////////////////// route formulaire
-/*app.get('/peupler', function (req, res) {
-	let peuplement = peupler();
-	
-	db.collection('adresse').save(peuplement, (err, result) => {
-		if (err) return console.log(err)
-			console.log('sauvegarder dans la BD')
-			res.redirect('/list')
-		})
-})*/
-
+//////////////////////////////// route peupler
 app.get('/peupler', (req,res) => {
 	res.resultat = peupler(); 
 	console.log('début boucle') 
@@ -124,7 +114,11 @@ app.get('/peupler', (req,res) => {
 	res.redirect('/list')
 })
 
-
+//////////////////////////////// route vider
+app.get('/vider', (req, res) => {
+	db.collection('adresse').drop();
+ 	res.redirect('/list');
+})
 
 /*Connexion à la base de données MongoDB*/
 MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
