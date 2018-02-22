@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 })
 
 ////////////////////////////////// route adresses
-app.get('/list', function (req, res) {
+app.get('/adresse', function (req, res) {
 	var cursor = db.collection('adresse').find().toArray(function(err, resultat){
 		if (err) return console.log(err)
 		var util = require("util");
@@ -55,7 +55,7 @@ app.post('/ajouter', (req, res) => {
 		db.collection('adresse').save(objet, (err, result) => {
 		if (err) return console.log(err)
 			console.log('sauvegarder dans la BD')
-			res.redirect('/list')
+			res.redirect('/adresse')
 		})
 	}else{
 		console.log("modifier");
@@ -69,7 +69,7 @@ app.post('/ajouter', (req, res) => {
 		db.collection('adresse').save(objet, (err, result) => {
 		if (err) return console.log(err)
 		console.log('sauvegarder dans la BD')
-		res.redirect('/list')
+		res.redirect('/adresse')
 	})
 	}
 	
@@ -86,7 +86,7 @@ console.log(id)
  .findOneAndDelete({"_id": critere}, (err, resultat) => {
 
 if (err) return console.log(err)
- res.redirect('/list')
+ res.redirect('/adresse')
  })
 })
 
@@ -111,13 +111,13 @@ app.get('/peupler', (req,res) => {
 		})
 	}
 	console.log('fin boucle')
-	res.redirect('/list')
+	res.redirect('/adresse')
 })
 
 //////////////////////////////// route vider
 app.get('/vider', (req, res) => {
 	db.collection('adresse').drop();
- 	res.redirect('/list');
+ 	res.redirect('/adresse');
 })
 
 /*Connexion à la base de données MongoDB*/
