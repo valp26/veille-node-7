@@ -16,6 +16,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 let db // variable qui contiendra le lien sur la BD
 
+/*Permet d'accéder à la boucle de peuplement*/
 const peupler = require("./mes_modules/peupler/index.js");
 
 ////////////////////////////////// route accueil
@@ -77,17 +78,15 @@ app.post('/ajouter', (req, res) => {
 
 //////////////////////////////// route supprimer
 app.get('/delete/:id', (req, res) => {
-var id = req.params.id 
-var critere = ObjectID(req.params.id)
-console.log(critere)
+	var id = req.params.id 
+	var critere = ObjectID(req.params.id)
+	console.log(critere)
 
-console.log(id)
- db.collection('adresse')
- .findOneAndDelete({"_id": critere}, (err, resultat) => {
-
-if (err) return console.log(err)
- res.redirect('/adresse')
- })
+	console.log(id)
+	db.collection('adresse').findOneAndDelete({"_id": critere}, (err, resultat) => {
+		if (err) return console.log(err)
+		res.redirect('/adresse')
+	})
 })
 
 //////////////////////////////// route trier
